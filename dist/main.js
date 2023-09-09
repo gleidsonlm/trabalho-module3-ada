@@ -139,6 +139,9 @@ class Checkout {
         if (!this.paymentMethod) {
             throw new Error('Payment method not found');
         }
+        if (this.paymentMethod?.type === `pix`) {
+            this.total = this.cart.getTotal() * (1 - 5 / 100);
+        }
         this.paymentStatus = 'paid';
         this.cart.getProducts().forEach(item => {
             item.product.sell(item.quantity);
@@ -153,10 +156,17 @@ const paymentMethod = (choice) => {
         return joseSilva.getPix();
     }
 };
-// const joseSilvaPix = joseSilva.getPix()
-// const checkoutPix = new Checkout(joseSilvaCart, paymentMethod('pix'));
-// checkoutPix.pay();
-const joseSilvaCreditCard = joseSilva.getCreditCard();
-const checkoutCreditCard = new Checkout(joseSilvaCart, paymentMethod('creditCard'));
-checkoutCreditCard.pay();
-console.log(checkoutCreditCard, iPhone12, graphicCard);
+const joseSilvaPix = joseSilva.getPix();
+const checkoutPix = new Checkout(joseSilvaCart, paymentMethod('pix'));
+checkoutPix.pay();
+console.log(joseSilvaPix, iPhone12, graphicCard);
+console.log(joseSilvaPix);
+console.log(checkoutPix.total);
+console.log(checkoutPix.paymentMethod?.type);
+// const joseSilvaCreditCard = joseSilva.getCreditCard()
+// const checkoutCreditCard = new Checkout(joseSilvaCart, paymentMethod('creditCard'));
+// checkoutCreditCard.pay();
+// console.log(checkoutCreditCard, iPhone12, graphicCard)
+// console.log(checkoutCreditCard)
+// console.log(checkoutCreditCard.total)
+// console.log(checkoutCreditCard.paymentMethod?.type)
