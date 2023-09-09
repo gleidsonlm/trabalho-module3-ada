@@ -11,8 +11,9 @@
 
 O aluno deve se comunicar e participar das aulas, mostrando empenho e sendo proativo (principalmente na busca pelas respostas das questões EXTRAS)
 
-## Desenvolvido por: ##
-- https://github.com/gleidsonlm
-- https://github.com/HGalieta
-- https://github.com/jmdonizetti
-- https://github.com/theviolatorx
+## Desenvolvido por ##
+
+- <https://github.com/gleidsonlm>
+- <https://github.com/HGalieta>
+- <https://github.com/jmdonizetti>
+- <https://github.com/theviolatorx>
