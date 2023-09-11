@@ -13,6 +13,20 @@ export class Person implements IPerson {
         this.name = name;
         this.cpf = cpf;
     }
+    
+    private generateRandomPixKey(): string {
+        const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const keyLength = 20; 
+    
+        let pixKey = '';
+    
+        for (let i = 0; i < keyLength; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            pixKey += characters.charAt(randomIndex);
+        }
+    
+        return pixKey;
+    };
 
     setCreditCard(number: string, cvv: string, expirationDate: string) {
         this.creditCard = new CreditCard(this.name, number, cvv, expirationDate);
@@ -21,15 +35,18 @@ export class Person implements IPerson {
     getCreditCard() {
         return this.creditCard;
     }
+    
 
-    setPix(pixKey: string) {
-        this.pix = new Pix(this.name, pixKey);
+    setPix() {
+        this.pix = new Pix(this.name, this.generateRandomPixKey());
     }
 
     getPix() {
         return this.pix;
     }
 }
+
+
 
 class PaymentMethod {
     name: string;
@@ -65,7 +82,7 @@ class CreditCard extends PaymentMethod {
 
 const joseSilva = new Person('José Silva', '123.456.789-00');
 joseSilva.setCreditCard('1234 5678 9012 3456','969','12/2024');
-joseSilva.setPix('12345678900');
+// joseSilva.setPix('12345678900');
 console.log(joseSilva)
 
 class Product {
@@ -204,3 +221,13 @@ const checkoutCreditCard = new Checkout(joseSilvaCart, paymentMethod('creditCard
 checkoutCreditCard.pay();
 
 console.log(checkoutCreditCard, iPhone12, graphicCard)
+
+const joao = new Person('Joao M', '123.456.789-00');
+console.log(joao, joao.setCreditCard('1234 5678 9012 3456','969','12/2024') ,joao.setPix()); 
+
+const henrique = new Person('Henrique', '123.456.789.10');
+console.log(henrique, henrique.setPix()); 
+
+
+
+
