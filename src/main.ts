@@ -131,6 +131,7 @@ class cartProduct {
         this.quantity -= quantity;
         this.price = this.product.price * this.quantity
     }
+
 }
 
 class Cart {
@@ -146,6 +147,17 @@ class Cart {
 
     addProduct(product: cartProduct) {
         this.products.push(product);
+    }
+
+    getListCar(): any {
+        const listCar: any[] = [];
+        // console.log("Itens do Carrinho");
+        this.products.forEach(element => {
+            // console.log("Produto:", element.product.name, "Quantidade:",  element.quantity, "Preço:", element.price);
+            listCar.push([element.product.name, element.quantity, element.price.toFixed(2)]);
+        });
+        // console.log("Total a pagar:", this.getTotal());
+        return listCar;
     }
 
     removeProduct(product: cartProduct) {
@@ -176,6 +188,8 @@ const iPhone12CartProduct = new cartProduct(iPhone12, 2);
 const graphicCardProduct = new cartProduct(graphicCard, 2);
 joseSilvaCart.addProduct(iPhone12CartProduct);
 joseSilvaCart.addProduct(graphicCardProduct);
+console.log("Lista de Carros");
+console.log(joseSilvaCart.getListCar());
 
 console.log(joseSilvaCart,joseSilvaCart.getTotal());
 
@@ -237,7 +251,7 @@ console.log(checkoutPix.paymentMethod?.type)
 // console.log(checkoutCreditCard)
 // console.log(checkoutCreditCard.total)
 // console.log(checkoutCreditCard.paymentMethod?.type)
-console.log(checkoutCreditCard, iPhone12, graphicCard)
+// console.log(checkoutCreditCard, iPhone12, graphicCard)
 
 const joao = new Person('Joao M', '123.456.789-00');
 console.log(joao, joao.setCreditCard('1234 5678 9012 3456','969','12/2024') ,joao.setPix()); 
