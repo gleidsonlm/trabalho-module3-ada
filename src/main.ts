@@ -188,10 +188,11 @@ const iPhone12CartProduct = new cartProduct(iPhone12, 2);
 const graphicCardProduct = new cartProduct(graphicCard, 2);
 joseSilvaCart.addProduct(iPhone12CartProduct);
 joseSilvaCart.addProduct(graphicCardProduct);
-console.log("Lista de Carros");
+console.log("Itens do Carrinho");
 console.log(joseSilvaCart.getListCar());
+console.log(joseSilvaCart.getTotal());
 
-console.log(joseSilvaCart,joseSilvaCart.getTotal());
+// console.log(joseSilvaCart,joseSilvaCart.getTotal());
 
 class Checkout {
     cart: Cart;
