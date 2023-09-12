@@ -261,17 +261,6 @@ class Cart {
     getTotal() {
         return this.products.reduce((total, product) => total + product.price, 0);
     }
-    // TODO: Retirar este método
-    getListCar() {
-        const listCar = [];
-        // console.log("Itens do Carrinho");
-        this.products.forEach(element => {
-            // console.log("Produto:", element.product.name, "Quantidade:",  element.quantity, "Preço:", element.price);
-            listCar.push([element.product.name, element.quantity, element.price.toFixed(2)]);
-        });
-        // console.log("Total a pagar:", this.getTotal());
-        return listCar;
-    }
 }
 const joseSilvaCart = new Cart(joseSilva);
 const iPhone12CartProduct = new cartProduct(iPhone12, 2);
