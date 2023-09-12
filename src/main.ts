@@ -1,3 +1,11 @@
+/** 
+ * Welcome to main.ts
+ * @author Gleidson Medeiros <gleidsonlm@gmail.com>
+ * @author Clóvis Garcia <theviolatorx@gmail.com>
+ * @author Henrique Galieta <HGalieta>
+ * @author João Marcos Donizetti Rodrigues <jmdonizetti>
+ */
+
 export interface IPerson {
     name: string;
     cpf: string;
