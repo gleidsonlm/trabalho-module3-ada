@@ -7,6 +7,13 @@ export class Person {
         this.name = name;
         this.cpf = cpf;
     }
+    /**
+    * Método para retornar uma chave aleatória pix
+    * @exemple
+    * <objeto>.generateRandomPixKey();
+    *
+    * @return {string} chave aleatória
+    */
     generateRandomPixKey() {
         const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const keyLength = 20;
@@ -18,15 +25,46 @@ export class Person {
         return pixKey;
     }
     ;
+    /**
+    * Método para adicionar cartão de crédito
+    * @exemple
+    * <objeto>.setCreditCard("1234456789987654","159","09/2030")
+    *
+    * @arg {string} number - Número do cartão de crédito
+    * @arg {string} cvv - Código cvv
+    * @arg {string} expirationDate - Data de expiração do cartão
+    * @return {void}
+    */
     setCreditCard(number, cvv, expirationDate) {
         this.creditCard = new CreditCard(this.name, number, cvv, expirationDate);
     }
+    /**
+    * Método para retornar o número do cartão de crédito
+    * @exemple
+    * <objeto>.getCreditCard();
+    *
+    * @return {CreditCard | undefined} cartão de crédito
+    */
     getCreditCard() {
         return this.creditCard;
     }
+    /**
+    * Método para definir a chave pix
+    * @exemple
+    * <objeto>.setPix();
+    *
+    * @return {void}
+    */
     setPix() {
         this.pix = new Pix(this.name, this.generateRandomPixKey());
     }
+    /**
+    * Método retornar a chave pix
+    * @exemple
+    * <objeto>.setPix();
+    *
+    * @return {Pix | undefined}  chave pix
+    */
     getPix() {
         return this.pix;
     }
@@ -70,12 +108,30 @@ class Product {
         this.price = price;
         this.stock = stock;
     }
+    /**
+    * Método para retirar uma determinada quantidade de produtos do estoque
+    * @exemple
+    * <objeto>.sell(5);
+    *
+    * @arg {number} quantity - Quantidade de produtos a retirar do estoque
+    *
+    * @return {void}
+    */
     sell(quantity) {
         if (quantity > this.stock) {
             throw new Error('Insufficient stock');
         }
         this.stock -= quantity;
     }
+    /**
+    * Método para adicionar uma determinada quantidade de produtos ao estoque
+    * @exemple
+    * <objeto>.restock(5);
+    *
+    * @arg {number} quantity - Quantidade de produtos a adicionar ao estoque
+    *
+    * @return {void}
+    */
     restock(quantity) {
         this.stock += quantity;
     }
@@ -91,10 +147,28 @@ class cartProduct {
         this.quantity = quantity;
         this.price = product.price * this.quantity;
     }
+    /**
+    * Método para adicionar a quantidade de produtos para serem comprados
+    * @exemple
+    * <objeto>.addQuantity(5);
+    *
+    * @arg {number} quantity - Quantidade de produtos
+    *
+    * @return {void}
+    */
     addQuantity(quantity) {
         this.quantity += quantity;
         this.price = this.product.price * this.quantity;
     }
+    /**
+    * Método para remover a quantidade de produtos a serem comprados
+    * @exemple
+    * <objeto>.removeQuantity(5);
+    *
+    * @arg {number} quantity - Quantidade de produtos
+    *
+    * @return {void}
+    */
     removeQuantity(quantity) {
         this.quantity -= quantity;
         this.price = this.product.price * this.quantity;
@@ -109,9 +183,78 @@ class Cart {
         // this.id = uuidv4();
         this.customer = customer;
     }
+    /**
+    * Método para adicionar ao carrinho o produto a ser comprado
+    * @exemple
+    * <objeto>.addProduct(5);
+    *
+    * @arg {cartProduct} product - Produto a ser comprado
+    *
+    * @return {void}
+    */
     addProduct(product) {
         this.products.push(product);
     }
+    /**
+    * Método para remover do carrinho o produto a ser comprado
+    * @exemple
+    * <objeto>.removeProduct(<objeto>);
+    *
+    * @arg {cartProduct} product - Produto do carrinho
+    *
+    * @return {void}
+    */
+    removeProduct(product) {
+        const index = this.products.indexOf(product);
+        this.products.splice(index, 1);
+    }
+    /**
+    * Método para adicionar mais quantidade do produto no carrinho
+    * @exemple
+    * <objeto>.plusProduct(<objeto>, 5);
+    *
+    * @arg {cartProduct} product - Produto no carrinho
+    * @arg {number} quantity - Quantidade
+    *
+    * @return {void}
+    */
+    plusProduct(product, quantity) {
+        product.addQuantity(quantity);
+    }
+    /**
+    * Método para retirar uma quantidade do produto no carrinho
+    * @exemple
+    * <objeto>.minusProduct(<objeto>, 5);
+    *
+    * @arg {cartProduct} product - Produto no carrinho
+    * @arg {number} quantity - Quantidade
+    *
+    * @return {void}
+    */
+    minusProduct(product, quantity) {
+        product.removeQuantity(quantity);
+    }
+    /**
+    * Método para retornar os produtos no carrinho
+    * @exemple
+    * <objeto>.getProducts();
+    *
+    * @return {cartProduct[]}
+    */
+    getProducts() {
+        return this.products;
+    }
+    /**
+    * Método para retornar o total do carrinho
+    * @exemple
+    * <objeto>.getTotal();
+    *
+    * @return {number}
+    */
+    getTotal() {
+        return this.products.reduce((total, product) => total + product.price, 0);
+    }
+    // TODO: Retirar este método
     getListCar() {
         const listCar = [];
         // console.log("Itens do Carrinho");
@@ -122,30 +265,12 @@ class Cart {
         // console.log("Total a pagar:", this.getTotal());
         return listCar;
     }
-    removeProduct(product) {
-        const index = this.products.indexOf(product);
-        this.products.splice(index, 1);
-    }
-    plusProduct(product, quantity) {
-        product.addQuantity(quantity);
-    }
-    minusProduct(product, quantity) {
-        product.removeQuantity(quantity);
-    }
-    getProducts() {
-        return this.products;
-    }
-    getTotal() {
-        return this.products.reduce((total, product) => total + product.price, 0);
-    }
 }
 const joseSilvaCart = new Cart(joseSilva);
 const iPhone12CartProduct = new cartProduct(iPhone12, 2);
 const graphicCardProduct = new cartProduct(graphicCard, 2);
 joseSilvaCart.addProduct(iPhone12CartProduct);
 joseSilvaCart.addProduct(graphicCardProduct);
-console.log("Lista de Carros");
-console.log(joseSilvaCart.getListCar());
 console.log(joseSilvaCart, joseSilvaCart.getTotal());
 class Checkout {
     cart;
@@ -158,6 +283,13 @@ class Checkout {
         this.paymentStatus = 'pending';
         this.total = cart.getTotal();
     }
+    /**
+    * Método para efetuar o pagamento total do carrinho
+    * @exemple
+    * <objeto>.pay();
+    *
+    * @return {void}
+    */
     pay() {
         if (!this.paymentMethod) {
             throw new Error('Payment method not found');
@@ -171,6 +303,13 @@ class Checkout {
         });
     }
 }
+/**
+ * Constante que recebe o método de pagamento.
+ *
+ * @arg {string} choice - tipo de pagamento escolhido: creditCard ou pix
+ *
+ * @return {CreditCard | Pix | undefined}
+ */
 const paymentMethod = (choice) => {
     if (choice === 'creditCard' && joseSilva.getCreditCard()) {
         return joseSilva.getCreditCard();
