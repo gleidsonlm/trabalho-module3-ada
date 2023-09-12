@@ -173,6 +173,7 @@ class Product {
 
 const iPhone12 = new Product('IPhone 12', 10000, 10);
 const graphicCard = new Product('NVIDIA', 7000, 10);
+const keyboard = new Product('Teclado Gamer', 380, 20);
 
 class cartProduct {
     product: Product;
@@ -229,7 +230,7 @@ class Cart {
     /**
     * Método para adicionar ao carrinho o produto a ser comprado
     * @exemple
-    * <objeto>.addProduct(5);
+    * <objeto>.addProduct(cartProduct);
     * 
     * @arg {cartProduct} product - Produto a ser comprado
     *
@@ -309,8 +310,10 @@ class Cart {
 const joseSilvaCart = new Cart(joseSilva);
 const iPhone12CartProduct = new cartProduct(iPhone12, 2);
 const graphicCardProduct = new cartProduct(graphicCard, 2);
+const keyboardCarProduct = new cartProduct(keyboard, 2);
 joseSilvaCart.addProduct(iPhone12CartProduct);
 joseSilvaCart.addProduct(graphicCardProduct);
+joseSilvaCart.addProduct(keyboardCarProduct);
 console.log(joseSilvaCart,joseSilvaCart.getTotal());
 
 
