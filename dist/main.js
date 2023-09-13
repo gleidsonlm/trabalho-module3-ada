@@ -84,14 +84,14 @@ class PaymentMethod {
         this.type = type;
     }
 }
-class Pix extends PaymentMethod {
+export class Pix extends PaymentMethod {
     key;
     constructor(name, key) {
         super(name, 'pix');
         this.key = key;
     }
 }
-class CreditCard extends PaymentMethod {
+export class CreditCard extends PaymentMethod {
     number;
     cvv;
     expirationDate;
@@ -102,16 +102,14 @@ class CreditCard extends PaymentMethod {
         this.expirationDate = expirationDate;
     }
 }
-const joseSilva = new Person('José Silva', '123.456.789-00');
-joseSilva.setCreditCard('1234 5678 9012 3456', '969', '12/2024');
-// joseSilva.setPix('12345678900');
-console.log(joseSilva);
-class Product {
+export class Product {
     name;
+    description;
     price;
     stock;
-    constructor(name, price, stock) {
+    constructor(name, description, price, stock) {
         this.name = name;
+        this.description = description;
         this.price = price;
         this.stock = stock;
     }
@@ -143,10 +141,7 @@ class Product {
         this.stock += quantity;
     }
 }
-const iPhone12 = new Product('IPhone 12', 10000, 10);
-const graphicCard = new Product('NVIDIA', 7000, 10);
-const keyboard = new Product('Teclado Gamer', 380, 20);
-class cartProduct {
+export class CartProduct {
     product;
     quantity;
     price;
@@ -182,7 +177,7 @@ class cartProduct {
         this.price = this.product.price * this.quantity;
     }
 }
-class Cart {
+export class Cart {
     id;
     customer;
     products = [];
@@ -194,9 +189,9 @@ class Cart {
     /**
     * Método para adicionar ao carrinho o produto a ser comprado
     * @exemple
-    * <objeto>.addProduct(cartProduct);
+    * <objeto>.addProduct(CartProduct);
     *
-    * @arg {cartProduct} product - Produto a ser comprado
+    * @arg {CartProduct} product - Produto a ser comprado
     *
     * @return {void}
     */
@@ -208,7 +203,7 @@ class Cart {
     * @exemple
     * <objeto>.removeProduct(<objeto>);
     *
-    * @arg {cartProduct} product - Produto do carrinho
+    * @arg {CartProduct} product - Produto do carrinho
     *
     * @return {void}
     */
@@ -221,7 +216,7 @@ class Cart {
     * @exemple
     * <objeto>.plusProduct(<objeto>, 5);
     *
-    * @arg {cartProduct} product - Produto no carrinho
+    * @arg {CartProduct} product - Produto no carrinho
     * @arg {number} quantity - Quantidade
     *
     * @return {void}
@@ -234,7 +229,7 @@ class Cart {
     * @exemple
     * <objeto>.minusProduct(<objeto>, 5);
     *
-    * @arg {cartProduct} product - Produto no carrinho
+    * @arg {CartProduct} product - Produto no carrinho
     * @arg {number} quantity - Quantidade
     *
     * @return {void}
@@ -247,7 +242,7 @@ class Cart {
     * @exemple
     * <objeto>.getProducts();
     *
-    * @return {cartProduct[]}
+    * @return {CartProduct[]}
     */
     getProducts() {
         return this.products;
@@ -263,14 +258,6 @@ class Cart {
         return this.products.reduce((total, product) => total + product.price, 0);
     }
 }
-const joseSilvaCart = new Cart(joseSilva);
-const iPhone12CartProduct = new cartProduct(iPhone12, 2);
-const graphicCardProduct = new cartProduct(graphicCard, 2);
-const keyboardCarProduct = new cartProduct(keyboard, 2);
-joseSilvaCart.addProduct(iPhone12CartProduct);
-joseSilvaCart.addProduct(graphicCardProduct);
-joseSilvaCart.addProduct(keyboardCarProduct);
-console.log(joseSilvaCart, joseSilvaCart.getTotal());
 class Checkout {
     cart;
     paymentMethod;
@@ -302,37 +289,23 @@ class Checkout {
         });
     }
 }
-/**
- * Constante que recebe o método de pagamento.
- *
- * @arg {string} choice - tipo de pagamento escolhido: creditCard ou pix
- *
- * @return {CreditCard | Pix | undefined}
- */
-const paymentMethod = (choice) => {
-    if (choice === 'creditCard' && joseSilva.getCreditCard()) {
-        return joseSilva.getCreditCard();
+export class Store {
+    name;
+    cnpj;
+    products;
+    constructor(name, cnpj) {
+        this.name = name;
+        this.cnpj = cnpj;
+        this.products = [];
     }
-    else if (choice === 'pix' && joseSilva.getPix()) {
-        return joseSilva.getPix();
+    addProduct(product) {
+        this.products.push(product);
     }
-};
-const joseSilvaPix = joseSilva.getPix();
-const checkoutPix = new Checkout(joseSilvaCart, paymentMethod('pix'));
-checkoutPix.pay();
-console.log(joseSilvaPix, iPhone12, graphicCard);
-console.log(joseSilvaPix);
-console.log(checkoutPix.total);
-console.log(checkoutPix.paymentMethod?.type);
-// const joseSilvaCreditCard = joseSilva.getCreditCard()
-// const checkoutCreditCard = new Checkout(joseSilvaCart, paymentMethod('creditCard'));
-// checkoutCreditCard.pay();
-// console.log(checkoutCreditCard, iPhone12, graphicCard)
-// console.log(checkoutCreditCard)
-// console.log(checkoutCreditCard.total)
-// console.log(checkoutCreditCard.paymentMethod?.type)
-// console.log(checkoutCreditCard, iPhone12, graphicCard)
-const joao = new Person('Joao M', '123.456.789-00');
-console.log(joao, joao.setCreditCard('1234 5678 9012 3456', '969', '12/2024'), joao.setPix());
-const henrique = new Person('Henrique', '123.456.789.10');
-console.log(henrique, henrique.setPix());
+    removeProduct(product) {
+        const index = this.products.indexOf(product);
+        this.products.splice(index, 1);
+    }
+    listProducts() {
+        return this.products;
+    }
+}
