@@ -322,6 +322,7 @@ class Checkout {
     paymentMethod: PaymentMethod | undefined;
     paymentStatus: string;
     total: number;
+    estado: number;
 
     constructor(cart: Cart, paymentMethod: PaymentMethod| undefined) {
         this.cart = cart;
